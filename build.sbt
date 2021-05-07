@@ -33,6 +33,5 @@ lazy val root = (project in file("."))
     name := "root",
     commonLibraries
   )
-  .aggregate(
-    server
-  )
+  .dependsOn(server)
+  .aggregate(server)
