@@ -9,7 +9,7 @@ import cats.implicits._
 sealed trait ConfigSecrets extends Product with Serializable
 
 sealed trait ConfigAlgebras[F[_]] {
-  def loadApplicationConfig(implicit sync: Sync[F]): F[TwitterConfig]
+  def applicationSecretConfig(implicit sync: Sync[F]): F[TwitterConfig]
 }
 
 final case class ApiKey(apiKey: String)                       extends AnyVal
@@ -17,18 +17,20 @@ final case class ApiSecretKey(apiSecretKey: String)           extends AnyVal
 final case class AccessToken(accessToken: String)             extends AnyVal
 final case class AccessTokenSecret(accessTokenSecret: String) extends AnyVal
 final case class BearersToken(bearersToken: String)           extends AnyVal
+final case class SampleStream(sampleStream: String)           extends AnyVal
 
 final case class TwitterConfig(
     apiKey: ApiKey,
     apiSecretKey: ApiSecretKey,
     accessToken: AccessToken,
     accessTokenSecret: AccessTokenSecret,
-    bearersToken: BearersToken
+    bearersToken: BearersToken,
+    sampleStream: SampleStream
 ) extends ConfigSecrets
 
 class ConfigLoader[F[_]](configNameSpace: String) extends ConfigAlgebras[F] {
 
-  def loadApplicationConfig(implicit sync: Sync[F]): F[TwitterConfig] =
+  def applicationSecretConfig(implicit sync: Sync[F]): F[TwitterConfig] =
     sync.delay(ConfigFactory.load()).flatMap(conf => load(conf.getConfig(configNameSpace)))
 
   private def load(config: Config)(implicit sync: Sync[F]): F[TwitterConfig] = {
