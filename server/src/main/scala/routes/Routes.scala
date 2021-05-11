@@ -19,4 +19,11 @@ object Routes {
       } yield response
     }
   }
+
+  def dummyRoute[F[_]: Sync]: HttpRoutes[F] = {
+    val dsl = new Http4sDsl[F] {}
+    import dsl._
+
+    HttpRoutes.of[F] { case GET -> Root / api => Ok("one") }
+  }
 }
