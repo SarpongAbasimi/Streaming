@@ -12,7 +12,7 @@ import utils.Types.{Id, Text}
 object ApplicationDecoders {
   implicit def decoderID: Decoder[Id] = new Decoder[Id] {
     override def apply(c: HCursor): Result[Id] = for {
-      id <- c.downField("id").as[String]
+      id <- c.downField("id").as[Int]
     } yield Id(id)
   }
 
@@ -24,7 +24,7 @@ object ApplicationDecoders {
 
   implicit def decoderData: Decoder[Data] = new Decoder[Data] {
     override def apply(c: HCursor): Result[Data] = for {
-      id   <- c.downField("id").as[String]
+      id   <- c.downField("id").as[Int]
       text <- c.downField("text").as[String]
     } yield Data(Id(id), Text(text))
   }
