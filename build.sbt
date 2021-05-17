@@ -5,6 +5,7 @@ lazy val catsEffectTestingVersion = "0.5.0"
 lazy val catsCoreVersion          = "2.1.0"
 lazy val catsEffectVersion        = "2.1.1"
 lazy val circeVersion             = "0.12.3"
+lazy val circeGenericExVersion    = "0.13.0"
 
 lazy val commonLibraries = Seq(
   scalaVersion := "2.13.4",
@@ -17,7 +18,8 @@ lazy val commonLibraries = Seq(
     "org.typelevel"         %% "cats-effect"                   % catsEffectVersion,
     "io.circe"              %% "circe-core"                    % circeVersion,
     "io.circe"              %% "circe-generic"                 % circeVersion,
-    "io.circe"              %% "circe-parser"                  % circeVersion
+    "io.circe"              %% "circe-parser"                  % circeVersion,
+    "io.circe"              %% "circe-generic-extras"          % circeGenericExVersion
   )
 )
 

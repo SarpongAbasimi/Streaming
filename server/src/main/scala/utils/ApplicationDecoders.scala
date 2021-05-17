@@ -1,37 +1,18 @@
 package utils
 
-import io.circe.Decoder.Result
-import io.circe.{Decoder, HCursor}
-import model.{Data, SampleTweet}
-import utils.Types.{Id, Text}
+import io.circe.generic.extras.semiauto.deriveUnwrappedDecoder
+import io.circe.generic.semiauto.deriveDecoder
+import io.circe.Decoder
+import model.{Data, SampleTweet, Todo}
+import utils.Types.{Completed, Id, Text, Title, UserId}
 
-/**
- * Using Circe auto now so this is not needed.
- * Keeping it as an example for how to create Decoders.
- */
 object ApplicationDecoders {
-  implicit def decoderID: Decoder[Id] = new Decoder[Id] {
-    override def apply(c: HCursor): Result[Id] = for {
-      id <- c.downField("id").as[Int]
-    } yield Id(id)
-  }
-
-  implicit def decoderText: Decoder[Text] = new Decoder[Text] {
-    override def apply(c: HCursor): Result[Text] = for {
-      text <- c.downField("text").as[String]
-    } yield Text(text)
-  }
-
-  implicit def decoderData: Decoder[Data] = new Decoder[Data] {
-    override def apply(c: HCursor): Result[Data] = for {
-      id   <- c.downField("id").as[Int]
-      text <- c.downField("text").as[String]
-    } yield Data(Id(id), Text(text))
-  }
-
-  implicit def sampleTweetDecoder[F[_]]: Decoder[SampleTweet] = new Decoder[SampleTweet] {
-    override def apply(c: HCursor): Result[SampleTweet] = for {
-      data <- c.downField("data").as[Data]
-    } yield SampleTweet(data)
-  }
+  implicit val textDecoder: Decoder[Text]               = deriveUnwrappedDecoder[Text]
+  implicit val idDecoder: Decoder[Id]                   = deriveUnwrappedDecoder[Id]
+  implicit val dataDecoder: Decoder[Data]               = deriveDecoder[Data]
+  implicit val sampleTweetDecoder: Decoder[SampleTweet] = deriveDecoder[SampleTweet]
+  implicit val userIdDecoder: Decoder[UserId]           = deriveUnwrappedDecoder[UserId]
+  implicit val title: Decoder[Title]                    = deriveUnwrappedDecoder[Title]
+  implicit val completed: Decoder[Completed]            = deriveUnwrappedDecoder[Completed]
+  implicit val todo: Decoder[Todo]                      = deriveDecoder[Todo]
 }
