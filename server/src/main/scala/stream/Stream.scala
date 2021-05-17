@@ -17,7 +17,7 @@ object Stream {
     twitter = imp(config, client)
     routes  = (index[F](twitter) <+> dummyRoute[F]).orNotFound
     blazerServer <- BlazeServerBuilder[F](global)
-      .bindHttp(8080, "localhost")
+      .bindHttp(3000, "localhost")
       .withHttpApp(routes)
       .serve
   } yield blazerServer

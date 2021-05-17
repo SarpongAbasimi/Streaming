@@ -2,13 +2,15 @@ package algebras
 
 import cats.effect.Sync
 import config.TwitterConfig
-import model.SampleTweet
+import model.{SampleTweet, Todo}
 import org.http4s.{Header, Headers, Request, Uri}
 import org.http4s.client.Client
+import org.http4s.implicits.http4sLiteralsSyntax
 import utils.AppEntityEncodersAndDecoders._
 
 trait TweetAlg[F[_]] {
   def getSampleTweets: F[SampleTweet]
+  def getTodoTweets: F[Todo]
 }
 
 object TweetAlg {
@@ -22,5 +24,8 @@ object TweetAlg {
             Headers.of(Header("Authorization", s"Bearer ${config.bearersToken.bearersToken}"))
         )
       )
+
+    override def getTodoTweets: F[Todo] =
+      client.expect[Todo](uri"https://jsonplaceholder.typicode.com/todos/1")
   }
 }
