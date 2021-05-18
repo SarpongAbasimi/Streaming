@@ -14,7 +14,7 @@ object Routes {
 
     HttpRoutes.of[F] { case GET -> Root =>
       for {
-        data     <- twitter.getTodoTweets
+        data     <- twitter.getSampleTweets
         response <- Ok(data)
       } yield response
     }
