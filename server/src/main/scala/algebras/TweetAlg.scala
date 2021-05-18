@@ -16,14 +16,7 @@ trait TweetAlg[F[_]] {
 object TweetAlg {
 
   def imp[F[_]: Sync](config: TwitterConfig, client: Client[F]): TweetAlg[F] = new TweetAlg[F] {
-    override def getSampleTweets: F[SampleTweet] =
-      client.expect[SampleTweet](
-        Request[F](
-          uri = Uri(path = config.sampleStream.sampleStream),
-          headers =
-            Headers.of(Header("Authorization", s"Bearer ${config.bearersToken.bearersToken}"))
-        )
-      )
+    override def getSampleTweets: F[SampleTweet] = ???
 
     override def getTodoTweets: F[Todo] =
       client.expect[Todo](uri"https://jsonplaceholder.typicode.com/todos/1")
