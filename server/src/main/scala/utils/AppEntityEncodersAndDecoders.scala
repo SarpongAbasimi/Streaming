@@ -1,7 +1,7 @@
 package utils
 
 import cats.effect.Sync
-import model.{Data, SampleTweet, Todo}
+import model.{Data, Rules, SampleTweet}
 import org.http4s.{EntityDecoder, EntityEncoder}
 import org.http4s.circe.{jsonEncoderOf, jsonOf}
 
@@ -17,9 +17,7 @@ object AppEntityEncodersAndDecoders {
 
   implicit def dataEntityEncoder[F[_]: Sync]: EntityEncoder[F, Data] = jsonEncoderOf[F, Data]
 
-  implicit def todoEntityDecoder[F[_]: Sync]: EntityDecoder[F, Todo] =
-    jsonOf[F, Todo]
+  implicit def rulesEntityDecoder[F[_]: Sync]: EntityDecoder[F, Rules] = jsonOf[F, Rules]
 
-  implicit def todoEntityEncoder[F[_]: Sync]: EntityEncoder[F, Todo] =
-    jsonEncoderOf[F, Todo]
+  implicit def ruleEntityEncoder[F[_]: Sync]: EntityEncoder[F, Rules] = jsonEncoderOf[F, Rules]
 }
