@@ -19,5 +19,5 @@ object AppEntityEncodersAndDecoders {
 
   implicit def rulesEntityDecoder[F[_]: Sync]: EntityDecoder[F, Rules] = jsonOf[F, Rules]
 
-  implicit def ruleEntityEncoder[F[_]: Sync]: EntityEncoder[F, Rules] = jsonEncoderOf[F, Rules]
+  implicit def rulesEntityEncoder[F[_]: Sync]: EntityEncoder[F, Rules] = jsonEncoderOf[F, Rules]
 }

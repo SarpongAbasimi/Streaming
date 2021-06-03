@@ -15,9 +15,9 @@ object ApplicationDecoders {
   implicit val userIdDecoder: Decoder[UserId]           = deriveUnwrappedDecoder[UserId]
   implicit val title: Decoder[Title]                    = deriveUnwrappedDecoder[Title]
   implicit val completed: Decoder[Completed]            = deriveUnwrappedDecoder[Completed]
-  implicit val rulesDecoder: Decoder[Rules]             = deriveUnwrappedDecoder[Rules]
   implicit val sendDecoder: Decoder[Sent]               = deriveUnwrappedDecoder[Sent]
   implicit val valueDecoder: Decoder[Value]             = deriveUnwrappedDecoder[Value]
   implicit val metaDecoder: Decoder[Meta]               = deriveUnwrappedDecoder[Meta]
-  implicit val ruleDataDecoder: Decoder[RuleData]       = deriveUnwrappedDecoder[RuleData]
+  implicit val rulesDecoder: Decoder[Rules]             = deriveDecoder[Rules]
+  implicit val ruleDataDecoder: Decoder[RuleData]       = deriveDecoder[RuleData]
 }

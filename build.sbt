@@ -6,6 +6,7 @@ lazy val catsCoreVersion          = "2.1.0"
 lazy val catsEffectVersion        = "2.1.1"
 lazy val circeVersion             = "0.12.3"
 lazy val circeGenericExVersion    = "0.13.0"
+lazy val logbackClassicVersion    = "1.2.3"
 
 lazy val commonLibraries = Seq(
   scalaVersion := "2.13.4",
@@ -19,7 +20,8 @@ lazy val commonLibraries = Seq(
     "io.circe"              %% "circe-core"                    % circeVersion,
     "io.circe"              %% "circe-generic"                 % circeVersion,
     "io.circe"              %% "circe-parser"                  % circeVersion,
-    "io.circe"              %% "circe-generic-extras"          % circeGenericExVersion
+    "io.circe"              %% "circe-generic-extras"          % circeGenericExVersion,
+    "ch.qos.logback"         % "logback-classic"               % logbackClassicVersion
   )
 )
 
