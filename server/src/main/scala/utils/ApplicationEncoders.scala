@@ -3,7 +3,7 @@ package utils
 import io.circe.generic.extras.semiauto.deriveUnwrappedEncoder
 import io.circe.generic.semiauto.deriveEncoder
 import io.circe.Encoder
-import model.{Data, Rules, SampleTweet}
+import model.{Data, Meta, RuleData, Rules, SampleTweet}
 import utils.Types.{Completed, Id, RuleId, Sent, Text, Title, UserId, Value}
 
 object ApplicationEncoders {
@@ -17,5 +17,7 @@ object ApplicationEncoders {
   implicit val valueEncoder: Encoder[Value]             = deriveUnwrappedEncoder[Value]
   implicit val sentEncoder: Encoder[Sent]               = deriveUnwrappedEncoder[Sent]
   implicit val ruleIdEncoder: Encoder[RuleId]           = deriveUnwrappedEncoder[RuleId]
-  implicit val rulesEncoder: Encoder[Rules]             = deriveUnwrappedEncoder[Rules]
+  implicit val metaEncoder: Encoder[Meta]               = deriveUnwrappedEncoder[Meta]
+  implicit val ruleDataEncoder: Encoder[RuleData]       = deriveEncoder[RuleData]
+  implicit val rulesEncoder: Encoder[Rules]             = deriveEncoder[Rules]
 }

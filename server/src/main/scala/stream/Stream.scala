@@ -8,14 +8,14 @@ import org.http4s.client.blaze.BlazeClientBuilder
 import org.http4s.server.blaze.BlazeServerBuilder
 
 import scala.concurrent.ExecutionContext.global
-import routes.Routes.{dummyRoute, index, rules}
+import routes.Routes.{index, rules}
 import org.http4s.implicits._
 
 object Stream {
   def stream[F[_]: Timer: ConcurrentEffect](config: TwitterConfig) = for {
     client <- BlazeClientBuilder[F](global).stream
     twitter = imp(config, client)
-    routes  = (index[F](twitter) <+> dummyRoute[F] <+> rules(twitter)).orNotFound
+    routes  = (index[F](twitter) <+> rules(twitter)).orNotFound
     blazerServer <- BlazeServerBuilder[F](global)
       .bindHttp(3000, "localhost")
       .withHttpApp(routes)
