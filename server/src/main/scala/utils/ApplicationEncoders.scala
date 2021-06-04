@@ -14,10 +14,12 @@ object ApplicationEncoders {
   implicit val userIdEncoder: Encoder[UserId]           = deriveUnwrappedEncoder[UserId]
   implicit val titleEncoder: Encoder[Title]             = deriveUnwrappedEncoder[Title]
   implicit val completed: Encoder[Completed]            = deriveUnwrappedEncoder[Completed]
-  implicit val valueEncoder: Encoder[Value]             = deriveUnwrappedEncoder[Value]
-  implicit val sentEncoder: Encoder[Sent]               = deriveUnwrappedEncoder[Sent]
-  implicit val ruleIdEncoder: Encoder[RuleId]           = deriveUnwrappedEncoder[RuleId]
-  implicit val metaEncoder: Encoder[Meta]               = deriveUnwrappedEncoder[Meta]
-  implicit val ruleDataEncoder: Encoder[RuleData]       = deriveEncoder[RuleData]
-  implicit val rulesEncoder: Encoder[Rules]             = deriveEncoder[Rules]
+
+  implicit val valueEncoder: Encoder[Value]   = deriveUnwrappedEncoder[Value]
+  implicit val sentEncoder: Encoder[Sent]     = deriveUnwrappedEncoder[Sent]
+  implicit val ruleIdEncoder: Encoder[RuleId] = deriveUnwrappedEncoder[RuleId]
+
+  implicit val metaEncoder: Encoder[Meta]         = deriveEncoder[Meta]
+  implicit val ruleDataEncoder: Encoder[RuleData] = deriveEncoder[RuleData]
+  implicit val rulesEncoder: Encoder[Rules]       = deriveEncoder[Rules]
 }
