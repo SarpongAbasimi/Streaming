@@ -8,6 +8,7 @@ lazy val circeVersion             = "0.12.3"
 lazy val circeGenericExVersion    = "0.13.0"
 lazy val logbackClassicVersion    = "1.2.3"
 lazy val jawnFs2Version           = "1.0.0"
+lazy val fs2CirveVersion          = "0.13.0"
 
 lazy val commonLibraries = Seq(
   scalaVersion := "2.13.4",
@@ -23,7 +24,8 @@ lazy val commonLibraries = Seq(
     "io.circe"              %% "circe-parser"                  % circeVersion,
     "io.circe"              %% "circe-generic-extras"          % circeGenericExVersion,
     "ch.qos.logback"         % "logback-classic"               % logbackClassicVersion,
-    "org.http4s"            %% "jawn-fs2"                      % jawnFs2Version
+    "org.http4s"            %% "jawn-fs2"                      % jawnFs2Version,
+    "io.circe"              %% "circe-fs2"                     % fs2CirveVersion
   )
 )
 

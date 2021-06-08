@@ -3,7 +3,7 @@ package algebras
 import cats.effect.Sync
 import config.TwitterConfig
 import model.{Rules, SampleTweet}
-import org.http4s.{Header, Headers, Request, Response, Uri}
+import org.http4s.{Header, Headers, Request, Uri}
 import org.http4s.client.Client
 import utils.AppEntityEncodersAndDecoders._
 import cats.implicits._
@@ -56,7 +56,6 @@ object TweetAlg {
           )
         )
         .flatMap(_.body.chunks.parseJsonStream)
-
     }
   }
 }
