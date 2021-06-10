@@ -14,7 +14,7 @@ object Routes {
     import dsl._
 
     HttpRoutes.of[F] { case GET -> Root =>
-      Ok(twitter.streamSampleData)
+        twitter.getSampleTweets.flatMap(Ok(_))
     }
   }
 
