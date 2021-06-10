@@ -2,7 +2,7 @@ package algebras
 
 import cats.effect.Sync
 import config.TwitterConfig
-import model.{Rules, SampleTweet}
+import model.{Rules}
 import org.http4s.{Header, Headers, Request, Uri}
 import org.http4s.client.Client
 import utils.AppEntityEncodersAndDecoders._
