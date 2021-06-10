@@ -13,7 +13,6 @@ import jawnfs2._
 import org.http4s.implicits.http4sLiteralsSyntax
 
 trait TweetAlg[F[_]] {
-  def getSampleTweets: F[SampleTweet]
   def getTweetRules: F[Rules]
   def streamSampleData: Stream[F, Json]
 }
@@ -21,17 +20,6 @@ trait TweetAlg[F[_]] {
 object TweetAlg {
 
   def imp[F[_]: Sync](config: TwitterConfig, client: Client[F]): TweetAlg[F] = new TweetAlg[F] {
-    def getSampleTweets: F[SampleTweet] = {
-      Sync[F].fromEither(Uri.fromString(config.sampleStream.sampleStream)).flatMap { parsedUri =>
-        client.expect[SampleTweet](
-          Request[F](
-            uri = parsedUri,
-            headers =
-              Headers.of(Header("Authorization", s"Bearer ${config.bearersToken.bearersToken}"))
-          )
-        )
-      }
-    }
 
     def getTweetRules: F[Rules] = {
       Sync[F].fromEither(Uri.fromString(config.ruleEndPoint.ruleEndPoint)).flatMap { parsedUri =>
