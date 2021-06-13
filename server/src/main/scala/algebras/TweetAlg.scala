@@ -11,16 +11,37 @@ import fs2.Stream
 import io.circe.Json
 import jawnfs2._
 import org.http4s.implicits.http4sLiteralsSyntax
+import io.circe.fs2._
+import utils.ApplicationDecoders.rulesDecoder
 
 trait TweetAlg[F[_]] {
   def getTweetRules: F[Rules]
   def streamSampleData: Stream[F, Json]
   def getSampleTweets: F[Stream[F, Json]]
+  def getStreamRule: F[Stream[F, Rules]]
 }
 
 object TweetAlg {
 
   def imp[F[_]: Sync](config: TwitterConfig, client: Client[F]): TweetAlg[F] = new TweetAlg[F] {
+
+    def getStreamRule: F[Stream[F, Rules]] = {
+
+      implicit val f = io.circe.jawn.CirceSupportParser.facade
+      Sync[F].fromEither(Uri.fromString(config.ruleEndPoint.ruleEndPoint)).map { parsedUri =>
+        val parsedJson: Stream[F, Json] = client.stream(
+          Request[F](
+            uri = parsedUri,
+            headers =
+              Headers.of(Header("Authorization", s"Bearer ${config.bearersToken.bearersToken}"))
+          )
+        ).flatMap(_.body.chunks.parseJsonStream)
+
+        val decodedStream : Stream[F, Rules] = parsedJson.through(decoder)
+        decodedStream
+      }
+    }
+
     def getSampleTweets: F[Stream[F, Json]] = {
       implicit val f = io.circe.jawn.CirceSupportParser.facade
       Sync[F].fromEither(Uri.fromString(config.sampleStream.sampleStream)).map { parsedUri =>
